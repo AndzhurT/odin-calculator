@@ -1,0 +1,23 @@
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainCalculator {
+    background-color: gray;
+    display: flex;
+    width: 600px;
+    height: 700px;
+    border-radius: 12px;
+}
+
