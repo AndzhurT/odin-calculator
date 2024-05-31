@@ -11,6 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Roboto;
 }
 
 /* main body */
@@ -27,17 +28,26 @@ body {
     gap: 12px;
 }
 
-
-.mainCalculator .mainInput {
+/* Main input */
+.mainCalculator .sectionInput {
     width: 100%;
+    display: flex;
     background-color: white;
     height: 50px;
     border-radius: 6px;
 }
 
+.mainCalculator .displayInput {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 40px;
+    margin-left: auto;
+}
 
-.section0, .section1, 
-.section2, .section3 {
+/* Calculator Numbers */
+
+.section {
     display: flex;
     gap: 20px;
 }
@@ -50,4 +60,18 @@ body {
     width: 50px;
     height: 50px;
     background-color: white;
+}
+
+.calcButton button {
+    border: none;
+    width: 100%;
+    height: 100%;
+
+    &:hover {
+        background-color: rgb(107, 107, 107);
+    }
+
+    &:active {
+        background-color: rgb(46, 46, 46);
+    }
 }
