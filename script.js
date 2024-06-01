@@ -39,19 +39,29 @@ let buttonOperations = (e) => {
     e.preventDefault()
     let target = e.target;
     console.log(target.textContent);
+    let initialWord = displayInput.textContent;
 
     operatorList = ["+", "-", "÷","x"]
     numberList = ["0","1","2","3","4","5","6","7","8","9"]
 
     // erase
     if (target.textContent == "⇚") {
-        let initialWord = displayInput.textContent;
-        let slicedWord = initialWord.slice(0, initialWord.length - 1); 
+        let slicedWord;
+
+        if (initialWord.length == 1) {
+            slicedWord = "0";
+        }
+        else {
+            slicedWord = initialWord.slice(0, initialWord.length - 1); 
+        }
         displayInput.textContent = slicedWord;
     }
 
-    if (numberList.includes(target.textContent)) {
+    if (numberList.includes(target.textContent) & (initialWord != "0")) {
         displayInput.textContent += target.textContent;
+    }
+    else if (numberList.includes(target.textContent) & (initialWord == "0")) {
+        displayInput.textContent = target.textContent;
     }
     else {
         console.log("operator");
