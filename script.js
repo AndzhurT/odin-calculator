@@ -34,17 +34,35 @@ function operate(a, operator, b) {
 
 const btn = document.querySelectorAll("button");
 const displayInput = document.querySelector(".displayInput");
+let initialWord;
 
-let buttonOperations = (e) => {
+
+// Clear button
+let getClearOperation = (initialWord) => {
+    if (initialWord.length > 0) {
+        initialWord = "0";
+        displayInput.textContent = initialWord;
+    }
+}
+
+
+let getButtonOperations = (e) => {
     e.preventDefault()
     let target = e.target;
     console.log(target.textContent);
-    let initialWord = displayInput.textContent;
+    initialWord = displayInput.textContent;
 
     operatorList = ["+", "-", "÷","x"]
     numberList = ["0","1","2","3","4","5","6","7","8","9"]
 
+
     // erase
+
+
+    if (target.textContent == "C") {
+        getClearOperation(initialWord);
+    }
+
     if (target.textContent == "⇚") {
         let slicedWord;
 
@@ -57,7 +75,7 @@ let buttonOperations = (e) => {
         displayInput.textContent = slicedWord;
     }
 
-    if (numberList.includes(target.textContent) & (initialWord != "0")) {
+    if (numberList.includes(target.textContent) & (initialWord != "0") & (initialWord.length < 15)) {
         displayInput.textContent += target.textContent;
     }
     else if (numberList.includes(target.textContent) & (initialWord == "0")) {
@@ -68,7 +86,10 @@ let buttonOperations = (e) => {
     }
 }
 
+
+
+
 btn.forEach(button => {
-    button.addEventListener("click", buttonOperations);
+    button.addEventListener("click", getButtonOperations);
 })
 
