@@ -57,10 +57,21 @@ body {
 
 .mainCalculator .displayInput {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: flex-end;
-    font-size: 40px;
     margin-left: auto;
+    flex-direction: column;
+}
+
+.mainCalculator .displayPrevInput {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    opacity: 50%;
+}
+
+.mainCalculator .displayCurrInput {
+    font-size: 40px;
 }
 
 /* Calculator Numbers */

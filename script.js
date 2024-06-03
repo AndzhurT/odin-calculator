@@ -45,6 +45,20 @@ let getClearOperation = (initialWord) => {
     }
 }
 
+//
+let getOperations = () => {
+
+}
+
+// Number buttons
+let getNumberButtons = (initialWord, target) => {
+    if ((initialWord != "0") & (initialWord.length < 15)) {
+        displayInput.textContent += target.textContent;
+    }
+    else if ((initialWord == "0")) {
+        displayInput.textContent = target.textContent;
+    }
+}
 
 let getButtonOperations = (e) => {
     e.preventDefault()
@@ -57,8 +71,6 @@ let getButtonOperations = (e) => {
 
 
     // erase
-
-
     if (target.textContent == "C") {
         getClearOperation(initialWord);
     }
@@ -73,14 +85,17 @@ let getButtonOperations = (e) => {
             slicedWord = initialWord.slice(0, initialWord.length - 1); 
         }
         displayInput.textContent = slicedWord;
+    }   
+
+    // Number buttons
+    if (numberList.includes(target.textContent)) {
+        getNumberButtons(initialWord, target);
+    }
+    
+    if (operatorList.includes(target.textContent)) {
+        getOperations
     }
 
-    if (numberList.includes(target.textContent) & (initialWord != "0") & (initialWord.length < 15)) {
-        displayInput.textContent += target.textContent;
-    }
-    else if (numberList.includes(target.textContent) & (initialWord == "0")) {
-        displayInput.textContent = target.textContent;
-    }
     else {
         console.log("operator");
     }
