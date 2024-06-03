@@ -8,14 +8,19 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
-    return a * b;
+    return (a * b).toFixed(2);
 }
 
 function divide(a, b) {
-    let answer = a / b;
-    return answer.toFixed(1);
+    if (b == 0) {
+        return "Division by 0 is not allowed";
+    }
+    else {
+        let answer = a / b;
+        return answer.toFixed(2);
+    }
+    
 }
-
 
 function operate(a, operator, b) {
     if (operator == "+") {
@@ -32,12 +37,12 @@ function operate(a, operator, b) {
     }
 }
 
-
 const btn = document.querySelectorAll("button");
 const displayCurrInput = document.querySelector(".displayCurrInput");
 const displayPrevInput = document.querySelector(".displayPrevInput");
 const operatorList = ["+", "-", "÷", "×", "="];
 const numberList = ["0","1","2","3","4","5","6","7","8","9"];
+let currentOperation = false;
 let initialWord;
 
 
@@ -48,6 +53,22 @@ let getClearOperation = (initialWord) => {
         displayCurrInput.textContent = initialWord;
     }
 }
+
+let getLeftArrowOperation = (initialWord) => {
+    let slicedWord;
+
+    if (initialWord.length == 1) {
+        slicedWord = "0";
+    }
+    else if (initialWord.includes("Division by 0 is not allowed")) {
+        return;
+    }
+    else {
+        slicedWord = initialWord.slice(0, initialWord.length - 1); 
+    }
+    displayCurrInput.textContent = slicedWord;
+}
+
 
 // Operation button
 let getOperations = (initialWord, target) => {
@@ -63,12 +84,17 @@ let getOperations = (initialWord, target) => {
         console.log("finish")
         displayPrevInput.textContent = initialWord + target.textContent;
     }
+    currentOperation = true;
 }
 
 // Number buttons
 let getNumberButtons = (initialWord, target) => {
-    if ((initialWord != "0") & (initialWord.length < 15)) {
+    if ((initialWord != "0") & (initialWord.length < 15) & (currentOperation == false)) {
         displayCurrInput.textContent += target.textContent;
+    }
+    else if (operatorList.includes(displayPrevInput.textContent[displayPrevInput.textContent.length - 1]) & (currentOperation == true)) {
+        displayCurrInput.textContent = target.textContent;
+        currentOperation = false;
     }
     else if ((initialWord == "0")) {
         displayCurrInput.textContent = target.textContent;
@@ -81,21 +107,14 @@ let getButtonOperations = (e) => {
     console.log(target.textContent);
     initialWord = displayCurrInput.textContent;
 
-    // erase
+    // Clear 
     if (target.textContent == "C") {
         getClearOperation(initialWord);
     }
 
+    // Left arrow erase
     if (target.textContent == "⇚") {
-        let slicedWord;
-
-        if (initialWord.length == 1) {
-            slicedWord = "0";
-        }
-        else {
-            slicedWord = initialWord.slice(0, initialWord.length - 1); 
-        }
-        displayCurrInput.textContent = slicedWord;
+        getLeftArrowOperation(initialWord);
     }   
 
     // Number buttons
