@@ -12,7 +12,8 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    let answer = a / b;
+    return answer.toFixed(1);
 }
 
 
@@ -50,11 +51,10 @@ let getClearOperation = (initialWord) => {
 
 // Operation button
 let getOperations = (initialWord, target) => {
-    console.log("start")
     let prevInput = displayPrevInput.textContent.slice(0, displayPrevInput.textContent.length - 1);
     let currinput = displayCurrInput.textContent;
     let lastOperator = displayPrevInput.textContent[prevInput.length];
-    console.log("last operator", lastOperator);
+
     if (target.textContent == "=" & operatorList.includes(lastOperator)) {
         displayCurrInput.textContent = operate(prevInput, lastOperator, displayCurrInput.textContent);
         console.log(operate(prevInput, lastOperator, displayCurrInput.textContent));
