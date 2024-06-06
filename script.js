@@ -45,12 +45,14 @@ const numberList = ["0","1","2","3","4","5","6","7","8","9"];
 let currentOperation = false;
 let initialWord;
 
+let get
 
 // Clear button
 let getClearOperation = (initialWord) => {
     if (initialWord.length > 0) {
         initialWord = "0";
         displayCurrInput.textContent = initialWord;
+        displayPrevInput.textContent = "";
     }
 }
 
@@ -77,13 +79,13 @@ let getOperations = (initialWord, target) => {
     let lastOperator = displayPrevInput.textContent[prevInput.length];
 
     if (target.textContent == "=" & operatorList.includes(lastOperator)) {
+        displayPrevInput.textContent = displayPrevInput.textContent + displayCurrInput.textContent + target.textContent;
         displayCurrInput.textContent = operate(prevInput, lastOperator, displayCurrInput.textContent);
-        console.log(operate(prevInput, lastOperator, displayCurrInput.textContent));
     }
     else {
-        console.log("finish")
         displayPrevInput.textContent = initialWord + target.textContent;
     }
+
     currentOperation = true;
 }
 
@@ -117,6 +119,9 @@ let getButtonOperations = (e) => {
         getLeftArrowOperation(initialWord);
     }   
 
+    if (target.textContent == ".") {
+
+    }
     // Number buttons
     if (numberList.includes(target.textContent)) {
         getNumberButtons(initialWord, target);
