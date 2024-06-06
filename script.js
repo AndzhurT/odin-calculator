@@ -42,10 +42,18 @@ const displayCurrInput = document.querySelector(".displayCurrInput");
 const displayPrevInput = document.querySelector(".displayPrevInput");
 const operatorList = ["+", "-", "÷", "×", "="];
 const numberList = ["0","1","2","3","4","5","6","7","8","9"];
+// const unavailableButton = document.createElement(".unavailable");
 let currentOperation = false;
 let initialWord;
 
-let get
+
+// Dot button 
+let useDotButton = (initialWord, target) => {
+    if (!(initialWord.includes("."))) {
+        displayCurrInput.textContent += target.textContent;
+        target.classList.add(".unavailable");
+    }
+}
 
 // Clear button
 let getClearOperation = (initialWord) => {
@@ -56,6 +64,7 @@ let getClearOperation = (initialWord) => {
     }
 }
 
+// Left Arrow clear button
 let getLeftArrowOperation = (initialWord) => {
     let slicedWord;
 
@@ -119,9 +128,11 @@ let getButtonOperations = (e) => {
         getLeftArrowOperation(initialWord);
     }   
 
+    // Use dot
     if (target.textContent == ".") {
-
+        useDotButton(initialWord, target);
     }
+
     // Number buttons
     if (numberList.includes(target.textContent)) {
         getNumberButtons(initialWord, target);
