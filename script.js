@@ -22,6 +22,10 @@ function divide(a, b) {
     
 }
 
+function modulo(a, b) {
+    return a % b;
+}
+
 function operate(a, operator, b) {
     if (operator == "+") {
         return add(a, b);
@@ -35,12 +39,15 @@ function operate(a, operator, b) {
     else if (operator == "÷") {
         return divide(a, b);
     }
+    else if (operator == "%") {
+        return modulo(a, b);
+    }
 }
 
 const btn = document.querySelectorAll("button");
 const displayCurrInput = document.querySelector(".displayCurrInput");
 const displayPrevInput = document.querySelector(".displayPrevInput");
-const operatorList = ["+", "-", "÷", "×", "="];
+const operatorList = ["+", "-", "÷", "×", "=", "%"];
 const numberList = ["0","1","2","3","4","5","6","7","8","9"];
 // const unavailableButton = document.createElement(".unavailable");
 let currentOperation = false;
