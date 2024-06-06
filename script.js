@@ -57,10 +57,11 @@ let useDotButton = (initialWord, target) => {
 
 // Clear button
 let getClearOperation = (initialWord) => {
-    if (initialWord.length > 0) {
+    if (initialWord.length > 0 || displayPrevInput.textContent.length > 0) {
         initialWord = "0";
         displayCurrInput.textContent = initialWord;
         displayPrevInput.textContent = "";
+        currentOperation = false
     }
 }
 
@@ -80,6 +81,15 @@ let getLeftArrowOperation = (initialWord) => {
     displayCurrInput.textContent = slicedWord;
 }
 
+// Plus and minus operation
+let usePlusMinus = (initialWord) => {
+    if ((Number(initialWord) > 0) & (initialWord != "0")) {
+        displayCurrInput.textContent = "-" + initialWord;
+    }
+    else {
+        displayCurrInput.textContent = initialWord.slice(1, displayCurrInput.length);
+    }
+}
 
 // Operation button
 let getOperations = (initialWord, target) => {
@@ -87,7 +97,7 @@ let getOperations = (initialWord, target) => {
     let currinput = displayCurrInput.textContent;
     let lastOperator = displayPrevInput.textContent[prevInput.length];
 
-    if (target.textContent == "=" & operatorList.includes(lastOperator)) {
+    if ((target.textContent == "=") & (operatorList.includes(lastOperator)) & (lastOperator != "=")) {
         displayPrevInput.textContent = displayPrevInput.textContent + displayCurrInput.textContent + target.textContent;
         displayCurrInput.textContent = operate(prevInput, lastOperator, displayCurrInput.textContent);
     }
@@ -115,7 +125,7 @@ let getNumberButtons = (initialWord, target) => {
 let getButtonOperations = (e) => {
     e.preventDefault()
     let target = e.target;
-    console.log(target.textContent);
+    console.log(target.textContent)
     initialWord = displayCurrInput.textContent;
 
     // Clear 
@@ -133,11 +143,16 @@ let getButtonOperations = (e) => {
         useDotButton(initialWord, target);
     }
 
+    if (target.textContent == "±") {
+        usePlusMinus(initialWord);
+    }
+
     // Number buttons
     if (numberList.includes(target.textContent)) {
         getNumberButtons(initialWord, target);
     }
     
+    // Operators
     if (operatorList.includes(target.textContent)) {
         getOperations(initialWord, target);
     }
