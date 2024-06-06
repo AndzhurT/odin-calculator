@@ -13,7 +13,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (b == 0) {
-        return "Division by 0 is not allowed";
+        return "Cannot divide by zero";
     }
     else {
         let answer = a / b;
@@ -56,7 +56,10 @@ let initialWord;
 
 // Dot button 
 let useDotButton = (initialWord, target) => {
-    if (!(initialWord.includes("."))) {
+    if (initialWord.includes("Cannot divide by zero")) {
+        return;
+    }
+    else if (!(initialWord.includes("."))) {
         displayCurrInput.textContent += target.textContent;
         target.classList.add(".unavailable");
     }
@@ -79,7 +82,11 @@ let getLeftArrowOperation = (initialWord) => {
     if (initialWord.length == 1) {
         slicedWord = "0";
     }
-    else if (initialWord.includes("Division by 0 is not allowed")) {
+    else if (initialWord.includes("Cannot divide by zero")) {
+        initialWord = "0";
+        displayCurrInput.textContent = initialWord;
+        displayPrevInput.textContent = "";
+        currentOperation = false;
         return;
     }
     else {
@@ -90,7 +97,11 @@ let getLeftArrowOperation = (initialWord) => {
 
 // Plus and minus operation
 let usePlusMinus = (initialWord) => {
-    if ((Number(initialWord) > 0) & (initialWord != "0")) {
+
+    if (initialWord.includes("Cannot divide by zero")) {
+        return;
+    }
+    else if ((Number(initialWord) > 0) & (initialWord != "0")) {
         displayCurrInput.textContent = "-" + initialWord;
     }
     else {
@@ -104,7 +115,10 @@ let getOperations = (initialWord, target) => {
     let currinput = displayCurrInput.textContent;
     let lastOperator = displayPrevInput.textContent[prevInput.length];
 
-    if ((target.textContent == "=") & (operatorList.includes(lastOperator)) & (lastOperator != "=")) {
+    if (initialWord.includes("Cannot divide by zero")) {
+        return;
+    }
+    else if ((target.textContent == "=") & (operatorList.includes(lastOperator)) & (lastOperator != "=")) {
         displayPrevInput.textContent = displayPrevInput.textContent + displayCurrInput.textContent + target.textContent;
         displayCurrInput.textContent = operate(prevInput, lastOperator, displayCurrInput.textContent);
     }
@@ -117,7 +131,12 @@ let getOperations = (initialWord, target) => {
 
 // Number buttons
 let getNumberButtons = (initialWord, target) => {
-    if ((initialWord != "0") & (initialWord.length < 15) & (currentOperation == false)) {
+    if (initialWord.includes("Cannot divide by zero")) {
+        displayCurrInput.textContent = target.textContent;
+        displayPrevInput.textContent = "";
+        currentOperation = false;
+    }
+    else if ((initialWord != "0") & (initialWord.length < 12) & (currentOperation == false)) {
         displayCurrInput.textContent += target.textContent;
     }
     else if (operatorList.includes(displayPrevInput.textContent[displayPrevInput.textContent.length - 1]) & (currentOperation == true)) {
