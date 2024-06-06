@@ -8,7 +8,8 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
-    return (a * b).toFixed(2);
+    let answer = a * b;
+    return answer.toFixed(2);
 }
 
 function divide(a, b) {
@@ -121,6 +122,18 @@ let getOperations = (initialWord, target) => {
     else if ((target.textContent == "=") & (operatorList.includes(lastOperator)) & (lastOperator != "=")) {
         displayPrevInput.textContent = displayPrevInput.textContent + displayCurrInput.textContent + target.textContent;
         displayCurrInput.textContent = operate(prevInput, lastOperator, displayCurrInput.textContent);
+        
+        let fontSize = (90 - displayCurrInput.textContent.length * 5);
+
+        if (displayCurrInput.textContent.length > 12 & fontSize > 0) {
+            displayCurrInput.setAttribute("style", `font-size:${fontSize}`);
+        }
+        else if (displayCurrInput.textContent.length > 12 & fontSize <= 0){
+            displayCurrInput.setAttribute("style", `text-overflow: ellipsis; overflow: hidden;`);
+        }
+        else {
+            displayCurrInput.setAttribute("style", "font-size: 30px");
+        }
     }
     else {
         displayPrevInput.textContent = initialWord + target.textContent;
@@ -151,7 +164,6 @@ let getNumberButtons = (initialWord, target) => {
 let getButtonOperations = (e) => {
     e.preventDefault()
     let target = e.target;
-    console.log(target.textContent)
     initialWord = displayCurrInput.textContent;
 
     // Clear 
@@ -183,9 +195,6 @@ let getButtonOperations = (e) => {
         getOperations(initialWord, target);
     }
 
-    else {
-        console.log("operator");
-    }
 }
 
 
